@@ -1,0 +1,87 @@
+html,
+body {
+  height: 100%;
+}
+
+.form-reset-password,
+.form-signin,
+.form-signup {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-forgot-password {
+  max-width: 550px;
+  padding: 1rem;
+}
+
+.form-forgot-password .form-floating:focus-within,
+.form-reset-password .form-floating:focus-within,
+.form-signin .form-floating:focus-within,
+.form-signup .form-floating:focus-within {
+  z-index: 2;
+}
+
+/* Signin */
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Signup */
+.form-signup input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signup input[type="email"] {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.form-signup input[type="password"]#password {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.form-signup input[type="password"]#password_confirmation {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Reset Password */
+.form-reset-password input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-reset-password input[type="password"]#password {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.form-reset-password input[type="password"]#password_confirmation {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-forgot-password ul,
+.form-reset-password ul,
+.form-signin ul,
+.form-signup ul {
+  padding: 0;
+  list-style: none;
+  color: red;
+  font-size: 14px;
+}
