@@ -36,7 +36,7 @@ class PerfilController extends Controller
                 ->with('message', 'Erro ao adicionar perfil.');
         }
 
-        return redirect()->route('perfil.show', $perfil->id);
+        return redirect()->route('perfis.show', $perfil->id);
     }
 
     public function show(Perfil $perfil): View
@@ -63,7 +63,7 @@ class PerfilController extends Controller
                 ->with('message', 'Erro ao editar perfil.');
         }
 
-        return redirect()->route('perfil.show', $perfil->id);
+        return redirect()->route('perfis.show', $perfil->id);
     }
 
     public function destroy(Perfil $perfil): RedirectResponse
@@ -78,6 +78,6 @@ class PerfilController extends Controller
                 ->with('message', 'Erro ao excluir o perfil.');
         }
 
-        return redirect()->route('perfil.index');
+        return redirect()->route('perfis.index');
     }
 }

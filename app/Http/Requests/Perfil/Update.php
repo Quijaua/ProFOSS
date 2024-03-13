@@ -14,7 +14,6 @@ class Update extends FormRequest
 
     public function rules(): array
     {
-
         return [
             'name'    => 'required|string|max:200',
             'email' => [
@@ -24,7 +23,7 @@ class Update extends FormRequest
             ],
             'local'   => 'required|string|max:120',
             'phone'   => 'required|string|max:100',
-            'website' => 'required|string|max:200',
+            'website' => 'required|url:http,https|string|max:200',
             'about'   => 'required|string',
         ];
     }
