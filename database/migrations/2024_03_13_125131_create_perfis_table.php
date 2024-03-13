@@ -10,6 +10,12 @@ return new class extends Migration
     {
         Schema::create('perfis', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 200);
+            $table->string('email')->unique();
+            $table->string('local', 120);
+            $table->string('phone', 100);
+            $table->string('website', 200);
+            $table->text('about');
             $table->timestamps();
         });
     }

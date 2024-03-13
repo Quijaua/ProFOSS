@@ -12,9 +12,9 @@ class PerfilController extends Controller
         return view('perfil.index');
     }
 
-    public function create()
+    public function create(): View
     {
-        //
+        return view('perfil.create');
     }
 
     public function store(Request $request)
