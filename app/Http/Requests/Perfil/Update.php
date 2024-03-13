@@ -19,7 +19,7 @@ class Update extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('perfis')->ignore($this->profile->id),
+                Rule::unique('perfis')->ignore($this->perfil->id),
             ],
             'local'   => 'required|string|max:120',
             'phone'   => 'required|string|max:100',

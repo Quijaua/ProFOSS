@@ -43,7 +43,7 @@
                 <x-input-error :messages="$errors->get('about')" class="mt-2 invalid-feedback" />
             </div>
 
-            <button class="btn btn-primary w-100 py-2 mt-4" type="submit">{{ __('Adicionar') }}</button>
+            <button class="btn btn-primary w-100 py-2 mt-4" type="submit">Adicionar</button>
         </form>
     </div>
 </x-app-layout>
