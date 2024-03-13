@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-floating mt-3">
-                <x-text-area id="about" class="form-control {{ $errors->has('about') ? 'is-invalid' : '' }}" name="about" :value="old('about', $perfil->about)" required />
+                <x-text-area id="about" class="form-control {{ $errors->has('about') ? 'is-invalid' : '' }}" name="about" :value="old('about', $perfil->about)" rows="5" required />
                 <label for="about">Sobre</label>
                 <x-input-error :messages="$errors->get('about')" class="mt-2 invalid-feedback" />
             </div>

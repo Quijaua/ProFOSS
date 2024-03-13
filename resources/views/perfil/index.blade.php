@@ -24,7 +24,11 @@
             <tbody>
                 @forelse($perfis as $perfil)
                     <tr>
-                        <td>{{ $perfil->id }}</td>
+                        <td>
+                            <a href="{{ route('perfil.show', $perfil->id) }}">
+                                {{ $perfil->id }}
+                            </a>
+                        </td>
                         <td>{{ $perfil->name }}</td>
                         <td>{{ $perfil->email }}</td>
                         <td>
@@ -39,7 +43,7 @@
                             <form action="{{ route('perfil.destroy', $perfil->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger ">
+                                <button type="submit" class="btn btn-sm btn-danger">
                                     Excluir
                                 </button>
                             </form>
