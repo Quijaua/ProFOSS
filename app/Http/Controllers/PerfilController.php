@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        //
+        return view('perfil.index');
     }
 
     public function create()
