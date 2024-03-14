@@ -6,9 +6,12 @@ use App\Http\Integrations\Github;
 use App\Http\Requests\Issue\Create as CreateIssueRequest;
 use App\Http\Requests\Issue\Update as UpdateIssueRequest;
 use App\Models\Issue;
+use App\Models\Repository;
 use Http\Discovery\Exception\NotFoundException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Throwable;
@@ -37,24 +40,44 @@ class IssueController extends Controller
         $url = $request->validated('url');
 
         try {
+            DB::beginTransaction();
+
             $sanitizedUrl = Github\Issue::sanitizeUrl($url);
+
+            $githubRepository = $this->github->repository(...Arr::except($sanitizedUrl, 'number'));
+
+            /** @var Repository $repository */
+            $repository = Repository::query()->updateOrCreate([
+                'name' => $githubRepository->name(),
+                'description' => $githubRepository->description(),
+                'url' => $githubRepository->url(),
+                'owner' => $githubRepository->owner(),
+                'full_name' => $githubRepository->fullName(),
+            ]);
 
             $githubIssue = $this->github->issue(...$sanitizedUrl);
 
-            $issue = Issue::query()->create([
+            /** @var Issue $issue */
+            $issue = $repository->issues()->create([
                 'title' => $githubIssue->title(),
                 'body' => $githubIssue->body(),
                 'url' => $githubIssue->url(),
                 'state' => $githubIssue->state(),
             ]);
+
+            DB::commit();
         } catch (InvalidArgumentException|NotFoundException $e) {
             Log::error($e->getMessage(), $e->getTrace());
+
+            DB::rollBack();
 
             return back()
                 ->with('error', $e->getMessage())
                 ->withInput();
         } catch (Throwable $e) {
             Log::error($e->getMessage(), $e->getTrace());
+
+            DB::rollBack();
 
             return back()->with('error', 'Failed to fetch issue from Github');
         }
