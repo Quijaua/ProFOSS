@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Integrations\Github;
 use App\Http\Requests\Issue\Create as CreateIssueRequest;
+use App\Http\Requests\Issue\Update as UpdateIssueRequest;
 use App\Models\Issue;
 use Http\Discovery\Exception\NotFoundException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Throwable;
@@ -67,18 +67,40 @@ class IssueController extends Controller
         return view('issues.show', compact('issue'));
     }
 
-    public function edit(Issue $issue)
+    public function edit(Issue $issue): View
     {
-        //
+        return view('issues.edit', compact('issue'));
     }
 
-    public function update(Request $request, Issue $issue)
+    public function update(UpdateIssueRequest $request, Issue $issue): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $issue->update($validated);
+        } catch (Throwable $e) {
+            Log::error("Erro ao editar (ID: $issue->id): {$e->getMessage()}");
+
+            return back()
+                ->with('status', 'error')
+                ->with('message', 'Erro ao editar.');
+        }
+
+        return redirect()->route('issues.show', $issue->id);
     }
 
-    public function destroy(Issue $issue)
+    public function destroy(Issue $issue): RedirectResponse
     {
-        //
+        try {
+            $issue->delete();
+        } catch (Throwable $e) {
+            Log::error("Erro ao excluir: {$e->getMessage()}");
+
+            return back()
+                ->with('status', 'error')
+                ->with('message', 'Erro ao excluir.');
+        }
+
+        return redirect()->route('issues.index');
     }
 }

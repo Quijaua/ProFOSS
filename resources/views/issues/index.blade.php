@@ -29,6 +29,9 @@
                         </a>
                     </td>
                     <td>
+                        <a href="{{ route('issues.show', $issue->id) }}" class="btn btn-sm btn-outline-primary">
+                            Ver
+                        </a>
                         <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
                             Editar
                         </a>
