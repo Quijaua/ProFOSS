@@ -65,6 +65,12 @@ class IssueController extends Controller
                 'state' => $githubIssue->state(),
             ]);
 
+            $issue->projects()->updateOrCreate([
+                'title' => $repository->full_name,
+                'short_description' => $repository->description,
+                'url' => $repository->url,
+            ]);
+
             DB::commit();
         } catch (InvalidArgumentException|NotFoundException $e) {
             Log::error($e->getMessage(), $e->getTrace());

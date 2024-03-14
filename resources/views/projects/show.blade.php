@@ -31,5 +31,22 @@
                 </button>
             </form>
         </div>
+
+        <hr>
+
+        <div class="my-3">
+            <h4>Issues vinculadas</h4>
+            <ul>
+                @if($issue = $project->issue)
+                    <li>
+                        <a href="{{ route('issues.show', $issue->id) }}">
+                            {{ $issue->title }}
+                        </a>
+                    </li>
+                @else
+                    <p>Nenhuma issue vinculada</p>
+                @endif
+            </ul>
+        </div>
     </div>
 </x-app-layout>

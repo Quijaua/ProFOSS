@@ -16,6 +16,7 @@
             <tr>
                 <th scope="col">Título</th>
                 <th scope="col">Link</th>
+                <th scope="col">Descrição</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -28,6 +29,7 @@
                             {{ $issue->url }}
                         </a>
                     </td>
+                    <td>{{ $issue->repository->description }}</td>
                     <td>
                         <a href="{{ route('issues.show', $issue->id) }}" class="btn btn-sm btn-outline-primary">
                             Ver

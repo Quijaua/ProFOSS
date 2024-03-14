@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreign('repository_id')
                 ->references('id')
                 ->on('repositories')
-                ->onDelete('no action');
+                ->onDelete('cascade');
         });
     }
 

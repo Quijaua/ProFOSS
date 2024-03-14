@@ -36,5 +36,22 @@
                 </button>
             </form>
         </div>
+
+        <hr>
+
+        <div class="my-3">
+            <h4>Projetos vinculados</h4>
+            <ul>
+                @forelse($issue->projects as $project)
+                    <li>
+                        <a href="{{ route('projects.show', $project->id) }}">
+                            {{ $project->title }}
+                        </a>
+                    </li>
+                @empty
+                    <p>Nenhum projeto vinculado</p>
+                @endforelse
+            </ul>
+        </div>
     </div>
 </x-app-layout>
