@@ -61,23 +61,45 @@ class ProjectController extends Controller
         return redirect()->route('projects.show', $project->id);
     }
 
-    public function show(Project $project)
+    public function show(Project $project): View
     {
-        //
+        return view('projects.show', compact('project'));
     }
 
-    public function edit(Project $project)
+    public function edit(Project $project): View
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $project->update($validated);
+        } catch (Throwable $e) {
+            Log::error("Erro ao editar (ID: $project->id): {$e->getMessage()}");
+
+            return back()
+                ->with('status', 'error')
+                ->with('message', 'Erro ao editar.');
+        }
+
+        return redirect()->route('projects.show', $project->id);
     }
 
-    public function destroy(Project $project)
+    public function destroy(Project $project): RedirectResponse
     {
-        //
+        try {
+            $project->delete();
+        } catch (Throwable $e) {
+            Log::error("Erro ao excluir: {$e->getMessage()}");
+
+            return back()
+                ->with('status', 'error')
+                ->with('message', 'Erro ao excluir.');
+        }
+
+        return redirect()->route('projects.index');
     }
 }
