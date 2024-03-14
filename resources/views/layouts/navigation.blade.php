@@ -83,7 +83,7 @@
                 <li class="nav-item">
                     <x-responsive-nav-link class="nav-link d-flex align-items-center gap-2" :href="route('profile.edit')">
                         <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
-                        {{ __('Profile') }}
+                        {{ __('Perfil') }}
                     </x-responsive-nav-link>
                 </li>
                 <li class="nav-item">
