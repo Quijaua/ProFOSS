@@ -65,16 +65,14 @@ class IssueController extends Controller
             ]);
 
             /** @var Issue $issue */
-            $issue = Issue::query()
-                ->with('repository')
-                ->create([
-                    'title' => $githubIssue->title(),
-                    'body' => $githubIssue->body(),
-                    'url' => $githubIssue->url(),
-                    'state' => $githubIssue->state(),
-                    'repository_id' => $repository->getKey(),
-                    'project_id' => $project->getKey(),
-                ]);
+            $issue = Issue::query()->create([
+                'title' => $githubIssue->title(),
+                'body' => $githubIssue->body(),
+                'url' => $githubIssue->url(),
+                'state' => $githubIssue->state(),
+                'repository_id' => $repository->getKey(),
+                'project_id' => $project->getKey(),
+            ]);
 
             DB::commit();
         } catch (InvalidArgumentException|NotFoundException $e) {
