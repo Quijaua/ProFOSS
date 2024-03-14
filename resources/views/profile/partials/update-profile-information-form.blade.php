@@ -15,9 +15,8 @@
 
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
-        @method('patch')
-        
-        <!-- Name -->
+        @method('PATCH')
+
         <div class="form-floating">
             <input id="name" class="form-control" type="text" name="name" value="{{ old('name', $user->name) }}" required autocomplete="name">
             <label for="name">Nome</label>
@@ -25,7 +24,6 @@
         </div>
 
         <div class="my-3">
-            <!-- Email Address -->
             <div class="form-floating">
                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username">
                 <label for="email">E-mail</label>
@@ -49,6 +47,30 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div class="form-floating my-3">
+            <x-text-input id="local" class="form-control" type="text" name="local" :value="old('local', $user->local)" />
+            <label for="local">Local</label>
+            <x-input-error class="mt-2" :messages="$errors->get('local')" />
+        </div>
+
+        <div class="form-floating my-3">
+            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone', $user->phone)" />
+            <label for="phone">Telefone</label>
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div class="form-floating my-3">
+            <x-text-input id="website" class="form-control" type="text" name="website" :value="old('website', $user->website)" />
+            <label for="website">Website</label>
+            <x-input-error class="mt-2" :messages="$errors->get('website')" />
+        </div>
+
+        <div class="form-floating my-3">
+            <x-text-area id="about" class="form-control" name="about" :value="old('about', $user->about)" rows="5" />
+            <label for="about">Sobre</label>
+            <x-input-error class="mt-2" :messages="$errors->get('about')" />
         </div>
 
         <div class="flex items-center gap-4">

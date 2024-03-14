@@ -13,12 +13,6 @@
                     </x-responsive-nav-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('perfil.index') }}">
-                        <svg class="bi"><use xlink:href="#people"/></svg>
-                        Perfis
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="#">
                         <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                         Orders
@@ -89,7 +83,7 @@
                 <li class="nav-item">
                     <x-responsive-nav-link class="nav-link d-flex align-items-center gap-2" :href="route('profile.edit')">
                         <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
-                        {{ __('Profile') }}
+                        {{ __('Perfil') }}
                     </x-responsive-nav-link>
                 </li>
                 <li class="nav-item">
