@@ -4,6 +4,7 @@ namespace App\Http\Integrations;
 
 use App\Http\Integrations\Github\Issue;
 use App\Http\Integrations\Github\Project;
+use App\Http\Integrations\Github\Repository;
 use GrahamCampbell\GitHub\GitHubManager;
 use Http\Discovery\Exception\NotFoundException;
 use Illuminate\Support\Arr;
@@ -34,6 +35,24 @@ final class Github
         }
 
         return Issue::make($data);
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function repository(string $owner, string $repository): Repository
+    {
+        try {
+            $data = $this->github->repo()->show($owner, $repository);
+        } catch (Throwable $e) {
+            if ($e->getCode() !== 404) {
+                throw $e;
+            }
+
+            throw new NotFoundException('Issue não encontrada');
+        }
+
+        return Repository::make($data);
     }
 
     /**
