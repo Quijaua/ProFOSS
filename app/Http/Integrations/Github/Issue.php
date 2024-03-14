@@ -49,4 +49,23 @@ final class Issue
     {
         return $this->url;
     }
+
+    public function state(): string
+    {
+        return $this->state;
+    }
+
+    public static function sanitizeUrl(string $url): array
+    {
+        $url = parse_url($url);
+        if ($url === false) {
+            throw new InvalidArgumentException('Invalid URL');
+        }
+
+        return [
+            'owner' => explode('/', $url['path'])[1],
+            'repository' => explode('/', $url['path'])[2],
+            'number' => explode('/', $url['path'])[4],
+        ];
+    }
 }

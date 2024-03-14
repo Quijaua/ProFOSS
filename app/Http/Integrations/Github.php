@@ -4,6 +4,7 @@ namespace App\Http\Integrations;
 
 use App\Http\Integrations\Github\Issue;
 use GrahamCampbell\GitHub\GitHubManager;
+use Http\Discovery\Exception\NotFoundException;
 use Throwable;
 
 final class Github
@@ -16,10 +17,10 @@ final class Github
     /**
      * @throws Throwable
      */
-    public function issue(string $owner, string $repository, int|string $id): ?Issue
+    public function issue(string $owner, string $repository, int|string $number): Issue
     {
         try {
-            $issue = $this->github->issues()->show($owner, $repository, $id);
+            $issue = $this->github->issues()->show($owner, $repository, $number);
 
             return Issue::make($issue);
         } catch (Throwable $e) {
@@ -27,7 +28,7 @@ final class Github
                 throw $e;
             }
 
-            return null;
+            throw new NotFoundException('Issue não encontrada');
         }
     }
 }
