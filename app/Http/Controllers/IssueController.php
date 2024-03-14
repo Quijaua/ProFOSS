@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Issue;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $issues = Issue::query()->paginate(25);
 
