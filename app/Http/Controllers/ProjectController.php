@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Integrations\Github;
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,13 +14,11 @@ class ProjectController extends Controller
         //
     }
 
-    public function index()
+    public function index(): View
     {
-//        $sanitizedUrl = Github\Project::sanitizeUrl('https://github.com/orgs/taiga-ti/projects/12');
-//
-//        $data = $this->github->project(...$sanitizedUrl);
-//
-//        dd($data);
+        $projects = Project::query()->paginate(25);
+
+        return view('projects.index', compact('projects'));
     }
 
     public function create()
