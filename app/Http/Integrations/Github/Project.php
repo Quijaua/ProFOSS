@@ -9,9 +9,29 @@ final class Project
     public const ORGANIZATION_TYPE = 'orgs';
     public const PERSONAL_TYPE = 'users';
 
+    public function __construct(
+        private readonly string $title,
+        private readonly string $shortDescription,
+    ) {
+        //
+    }
+
     public static function make(array $data): self
     {
-        return new self();
+        return new self(
+            $data['title'],
+            $data['shortDescription'] ?? '',
+        );
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function shortDescription(): string
+    {
+        return $this->shortDescription;
     }
 
     public static function sanitizeUrl(string $url): array
