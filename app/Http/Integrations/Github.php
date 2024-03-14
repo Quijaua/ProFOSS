@@ -85,6 +85,7 @@ final class Github
                     projectV2(number: $number)  {
                         title
                         shortDescription
+                        url
                     }
                 }
             }

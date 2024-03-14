@@ -12,6 +12,7 @@ final class Project
     public function __construct(
         private readonly string $title,
         private readonly string $shortDescription,
+        private readonly string $url,
     ) {
         //
     }
@@ -21,6 +22,7 @@ final class Project
         return new self(
             $data['title'],
             $data['shortDescription'] ?? '',
+            $data['url'],
         );
     }
 
@@ -32,6 +34,11 @@ final class Project
     public function shortDescription(): string
     {
         return $this->shortDescription;
+    }
+
+    public function url(): string
+    {
+        return $this->url;
     }
 
     public static function sanitizeUrl(string $url): array
