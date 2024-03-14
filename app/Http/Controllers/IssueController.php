@@ -9,7 +9,9 @@ class IssueController extends Controller
 {
     public function index()
     {
-        //
+        $issues = Issue::query()->paginate(25);
+
+        return view('issues.index', compact('issues'));
     }
 
     public function create()

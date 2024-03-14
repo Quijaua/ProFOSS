@@ -21,7 +21,7 @@ final class Github
         try {
             $issue = $this->github->issues()->show($owner, $repository, $id);
 
-            return new Issue($issue['title'], $issue['body'], $issue['html_url']);
+            return Issue::make($issue);
         } catch (Throwable $e) {
             if ($e->getCode() !== 404) {
                 throw $e;
