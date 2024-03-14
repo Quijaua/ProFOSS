@@ -4,6 +4,7 @@ namespace App\Http\Integrations;
 
 use App\Http\Integrations\Github\Issue;
 use GrahamCampbell\GitHub\GitHubManager;
+use Throwable;
 
 final class Github
 {
@@ -12,10 +13,21 @@ final class Github
         //
     }
 
-    public function issue(string $owner, string $repository, int|string $id): Issue
+    /**
+     * @throws Throwable
+     */
+    public function issue(string $owner, string $repository, int|string $id): ?Issue
     {
-        $issue = $this->github->issues()->show($owner, $repository, $id);
+        try {
+            $issue = $this->github->issues()->show($owner, $repository, $id);
 
-        return new Issue($issue['title'], $issue['body'], $issue['html_url']);
+            return new Issue($issue['title'], $issue['body'], $issue['html_url']);
+        } catch (Throwable $e) {
+            if ($e->getCode() !== 404) {
+                throw $e;
+            }
+
+            return null;
+        }
     }
 }
