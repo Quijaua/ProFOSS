@@ -40,17 +40,17 @@
         <hr>
 
         <div class="my-3">
-            <h4>Projetos vinculados</h4>
+            <h4>Projeto vinculado</h4>
             <ul>
-                @forelse($issue->projects as $project)
+                @if($project = $issue->project)
                     <li>
                         <a href="{{ route('projects.show', $project->id) }}">
                             {{ $project->title }}
                         </a>
                     </li>
-                @empty
+                @else
                     <p>Nenhum projeto vinculado</p>
-                @endforelse
+                @endif
             </ul>
         </div>
     </div>

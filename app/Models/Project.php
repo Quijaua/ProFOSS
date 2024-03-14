@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -16,8 +16,8 @@ class Project extends Model
         'url'
     ];
 
-    public function issue(): BelongsTo
+    public function issues(): HasMany
     {
-        return $this->belongsTo(Issue::class);
+        return $this->hasMany(Issue::class);
     }
 }

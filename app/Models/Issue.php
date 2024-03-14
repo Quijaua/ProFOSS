@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Issue extends Model
 {
@@ -16,6 +15,8 @@ class Issue extends Model
         'body',
         'url',
         'state',
+        'repository_id',
+        'project_id',
     ];
 
     public function repository(): BelongsTo
@@ -23,8 +24,8 @@ class Issue extends Model
         return $this->belongsTo(Repository::class);
     }
 
-    public function projects(): HasMany
+    public function project(): BelongsTo
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Project::class);
     }
 }

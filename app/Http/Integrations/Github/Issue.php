@@ -29,7 +29,7 @@ final class Issue
     {
         return new self(
             $data['title'],
-            $data['body'],
+            $data['body'] ?? '',
             $data['html_url'],
             $data['state'],
         );
