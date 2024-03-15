@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Overtrue\LaravelVote\Traits\Votable;
 
 class Issue extends Model
 {
     use HasFactory;
+    use Votable;
 
     protected $fillable = [
         'title',
