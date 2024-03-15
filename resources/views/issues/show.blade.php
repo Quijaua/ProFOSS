@@ -19,11 +19,6 @@
             <label for="body">Descrição</label>
         </div>
 
-        <div class="form-floating my-3">
-            <x-text-area id="body" class="form-control" name="body" :value="$issue->repository->description" disabled />
-            <label for="body">Descrição do Repositório</label>
-        </div>
-
         <div class="mt-3 d-flex justify-content-end gap-2">
             <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
                 Editar
