@@ -37,15 +37,15 @@
         <div class="my-3">
             <h4>Issues vinculadas</h4>
             <ul>
-                @if($issue = $project->issue)
+                @forelse($project->issues as $issue)
                     <li>
                         <a href="{{ route('issues.show', $issue->id) }}">
                             {{ $issue->title }}
                         </a>
                     </li>
-                @else
+                @empty
                     <p>Nenhuma issue vinculada</p>
-                @endif
+                @endforelse
             </ul>
         </div>
     </div>

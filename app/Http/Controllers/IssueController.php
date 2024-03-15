@@ -6,6 +6,7 @@ use App\Http\Integrations\Github;
 use App\Http\Requests\Issue\Create as CreateIssueRequest;
 use App\Http\Requests\Issue\Update as UpdateIssueRequest;
 use App\Models\Issue;
+use App\Models\Project;
 use App\Models\Repository;
 use Http\Discovery\Exception\NotFoundException;
 use Illuminate\Contracts\View\View;
@@ -46,6 +47,8 @@ class IssueController extends Controller
 
             $githubRepository = $this->github->repository(...Arr::except($sanitizedUrl, 'number'));
 
+            $githubIssue = $this->github->issue(...$sanitizedUrl);
+
             /** @var Repository $repository */
             $repository = Repository::query()->updateOrCreate([
                 'name' => $githubRepository->name(),
@@ -55,20 +58,20 @@ class IssueController extends Controller
                 'full_name' => $githubRepository->fullName(),
             ]);
 
-            $githubIssue = $this->github->issue(...$sanitizedUrl);
+            $project = Project::query()->updateOrCreate([
+                'title' => $githubRepository->fullName(),
+                'short_description' => $githubRepository->description(),
+                'url' => $githubRepository->url(),
+            ]);
 
             /** @var Issue $issue */
-            $issue = $repository->issues()->create([
+            $issue = Issue::query()->create([
                 'title' => $githubIssue->title(),
                 'body' => $githubIssue->body(),
                 'url' => $githubIssue->url(),
                 'state' => $githubIssue->state(),
-            ]);
-
-            $issue->projects()->updateOrCreate([
-                'title' => $repository->full_name,
-                'short_description' => $repository->description,
-                'url' => $repository->url,
+                'repository_id' => $repository->getKey(),
+                'project_id' => $project->getKey(),
             ]);
 
             DB::commit();
