@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Voter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Overtrue\LaravelVote\Traits\Voter;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -36,22 +35,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
-
-    public function hasUpvoted(Model $object): bool
-    {
-        return ($this->relationLoaded('votes') ? $this->votes : $this->votes())
-                ->where('votable_id', $object->getKey())
-                ->where('votable_type', $object->getMorphClass())
-                ->where('votes', '>=', 0)
-                ->exists();
-    }
-
-    public function hasDownvoted(Model $object): bool
-    {
-        return ($this->relationLoaded('votes') ? $this->votes : $this->votes())
-            ->where('votable_id', $object->getKey())
-            ->where('votable_type', $object->getMorphClass())
-            ->where('votes', '<=', 0)
-            ->exists();
-    }
 }
