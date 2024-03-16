@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Throwable;
@@ -99,11 +100,15 @@ class IssueController extends Controller
 
     public function edit(Issue $issue): View
     {
+        Gate::authorize('update', $issue);
+
         return view('issues.edit', compact('issue'));
     }
 
     public function update(UpdateIssueRequest $request, Issue $issue): RedirectResponse
     {
+        Gate::authorize('update', $issue);
+
         $validated = $request->validated();
 
         try {
@@ -121,6 +126,8 @@ class IssueController extends Controller
 
     public function destroy(Issue $issue): RedirectResponse
     {
+        Gate::authorize('delete', $issue);
+
         try {
             $issue->delete();
         } catch (Throwable $e) {

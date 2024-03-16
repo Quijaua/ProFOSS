@@ -7,7 +7,14 @@
         <livewire:issues.vote :issue="$issue" />
     </div>
 
-    <div class="mt-4 flex items-center justify-between">
+    <div class="my-1">
+        <h6 class="d-inline-block">Responsável: </h6>
+        <a href="{{ route('profile.show', $issue->createdBy->id) }}">
+            {{ $issue->createdBy->name }}
+        </a>
+    </div>
+
+    <div class="mt-3 flex items-center justify-between">
         <div class="form-floating my-3">
             <x-text-input id="url" class="form-control" type="text" name="url" :value="$issue->url" disabled />
             <label for="url">URL</label>
@@ -24,16 +31,21 @@
         </div>
 
         <div class="mt-3 d-flex justify-content-end gap-2">
-            <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
-                Editar
-            </a>
-            <form action="{{ route('issues.destroy', $issue->id) }}" method="post" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger">
-                    Excluir
-                </button>
-            </form>
+            @can('update', $issue)
+                <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
+                    Editar
+                </a>
+            @endcan
+
+            @can('delete', $issue)
+                <form action="{{ route('issues.destroy', $issue->id) }}" method="post" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Excluir
+                    </button>
+                </form>
+            @endcan
         </div>
 
         <hr>

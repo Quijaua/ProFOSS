@@ -31,16 +31,22 @@
                     <a href="{{ route('issues.show', $issue->id) }}" class="btn btn-sm btn-outline-primary">
                         Ver
                     </a>
-                    <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
-                        Editar
-                    </a>
-                    <form action="{{ route('issues.destroy', $issue->id) }}" method="post" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger ">
-                            Excluir
-                        </button>
-                    </form>
+
+                    @can('update', $issue)
+                        <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-outline-secondary">
+                            Editar
+                        </a>
+                    @endcan
+
+                    @can('delete', $issue)
+                        <form action="{{ route('issues.destroy', $issue->id) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger ">
+                                Excluir
+                            </button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
         @empty
