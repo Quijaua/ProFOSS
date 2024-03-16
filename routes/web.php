@@ -3,6 +3,7 @@
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RepositoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('issues', IssueController::class);
     Route::resource('projects', ProjectController::class);
+    Route::resource('repositories', RepositoryController::class)->only('index');
 });
 
 require __DIR__.'/auth.php';

@@ -13,6 +13,27 @@
                     </x-responsive-nav-link>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('issues.index') }}">
+                        <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                        Issues
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('projects.index') }}">
+                        <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                        Projetos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('repositories.index') }}">
+                        <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                        Repositórios
+                    </a>
+                </li>
+
+                <hr>
+
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="#">
                         <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                         Orders
