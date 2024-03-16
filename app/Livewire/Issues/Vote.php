@@ -50,7 +50,6 @@ class Vote extends Component
             return;
         }
 
-        $this->dispatch("issue.{$this->issue->id}.voted");
         $this->dispatch('issue.table.reload');
     }
 
@@ -68,7 +67,6 @@ class Vote extends Component
             return;
         }
 
-        $this->dispatch("issue.{$this->issue->id}.voted");
         $this->dispatch('issue.table.reload');
     }
 

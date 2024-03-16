@@ -4,6 +4,7 @@
         <tr>
             <th scope="col">Título</th>
             <th scope="col">Link</th>
+            <th scope="col">Responsável</th>
             <th scope="col">Votos</th>
             <th scope="col"></th>
         </tr>
@@ -15,6 +16,11 @@
                 <td>
                     <a href="{{ $issue->url }}" target="_blank">
                         {{ $issue->url }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('profile.show', $issue->createdBy->id) }}">
+                        {{ $issue->createdBy->name }}
                     </a>
                 </td>
                 <td>
