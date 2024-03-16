@@ -3,6 +3,10 @@
         <h1 class="h2">Visualizar Issue</h1>
     </div>
 
+    <div class="mt-3 d-flex justify-content-end gap-2">
+        <livewire:issues.vote :issue="$issue" />
+    </div>
+
     <div class="mt-4 flex items-center justify-between">
         <div class="form-floating my-3">
             <x-text-input id="url" class="form-control" type="text" name="url" :value="$issue->url" disabled />
